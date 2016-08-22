@@ -14,6 +14,7 @@ namespace Omnipay\Ideal\Message;
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
+use Exception;
 use SimpleXMLElement;
 use Omnipay\Common\Exception\InvalidRequestException;
 

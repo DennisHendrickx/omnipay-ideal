@@ -60,7 +60,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         }
     }
 
-    public function getTransactionID()
+    public function getTransactionId()
     {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->transactionID;
