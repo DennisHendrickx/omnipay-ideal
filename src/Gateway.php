@@ -32,6 +32,7 @@ class Gateway extends AbstractGateway
             'privateKeyPath' => '',
             'privateKeyPassphrase' => '',
             'testMode' => false,
+            'subId' => '',
         );
     }
 
