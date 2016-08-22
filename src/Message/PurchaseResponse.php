@@ -11,11 +11,32 @@
 
 namespace Omnipay\Ideal\Message;
 
+use Omnipay\Common\Message\RedirectResponseInterface;
+
 /**
  * iDeal Response
  */
-class PurchaseResponse extends AbstractResponse
+class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
+    public function isRedirect()
+    {
+        return ($this->getIssuerAuthenticationURL());
+    }
+
+    public function getRedirectUrl()
+    {
+        return $this->getIssuerAuthenticationURL();
+    }
+
+    public function getRedirectMethod()
+    {
+        return 'POST';
+    }
+
+    public function getRedirectData()
+    {
+        return $this->data;
+    }
 
 	public function rootElementExists(){
         return isset($this->data->Transaction) && isset($this->data->Issuer);
