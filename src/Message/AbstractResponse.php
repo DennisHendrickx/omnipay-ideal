@@ -11,8 +11,6 @@
 
 namespace Omnipay\Ideal\Message;
 
-use Omnipay\Common\Message\RedirectResponseInterface;
-
 /**
  * iDeal Response
  */
@@ -41,16 +39,46 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         return $this->data->Error;
     }
 
-    public function getErrorCode() {
+    /**
+     * Get error code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
         if (isset($this->data->Error)) {
             return (string)$this->data->Error->errorCode;
         }
     }
 
-    public function getErrorMessage() {
+    /**
+     * @deprecated To make the code more consistence with other Omnipay packages use getCode()
+     * @return string
+     */
+    public function getErrorCode()
+    {
+        return $this->getCode();
+    }
+
+    /**
+     * Get error message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
         if (isset($this->data->Error)) {
-            return (string)$this->data->Error->errorMessage;
+            return (string)$this->data->Error->errorDetail . ' - ' . (string)$this->data->Error->errorMessage;
         }
+    }
+
+    /**
+     * @deprecated To make the code more consistence with other Omnipay packages use getMessage()
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        return $this->getMessage();
     }
 
     public function getErrorDetail() {
