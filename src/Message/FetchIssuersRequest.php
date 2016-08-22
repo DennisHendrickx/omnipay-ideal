@@ -18,13 +18,14 @@ class FetchIssuersRequest extends AbstractRequest
 {
     public function getData()
     {
-    	$data = $this->getBaseData('DirectoryReq');
+        $data = $this->getBaseData('DirectoryReq');
         $data->Merchant->merchantID = $this->getMerchantId();
         $data->Merchant->subID = $this->getSubId();
         return $data;
     }
 
-    public function parseResponse(\Omnipay\Common\Message\RequestInterface $request, $data){
-    	return new FetchIssuersResponse($request, $data);
+    public function parseResponse(\Omnipay\Common\Message\RequestInterface $request, $data)
+    {
+        return new FetchIssuersResponse($request, $data);
     }
 }

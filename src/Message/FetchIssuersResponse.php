@@ -16,22 +16,25 @@ namespace Omnipay\Ideal\Message;
  */
 class FetchIssuersResponse extends AbstractResponse
 {
-    public function rootElementExists(){
+    public function rootElementExists()
+    {
         return isset($this->data->Directory);
     }
 
-    public function getDirectory() {
+    public function getDirectory()
+    {
         return $this->data->Directory;
     }
-    
-    public function getIssuers() {
+
+    public function getIssuers()
+    {
         if (isset($this->data->Directory)) {
             $issuers = array();
 
             foreach ($this->data->Directory->Country as $country) {
                 foreach ($country->Issuer as $issuer) {
-                    $id = (string) $issuer->issuerID;
-                    $issuers[(string)$country->countryNames][$id] = (string) $issuer->issuerName;
+                    $id = (string)$issuer->issuerID;
+                    $issuers[(string)$country->countryNames][$id] = (string)$issuer->issuerName;
                 }
             }
 

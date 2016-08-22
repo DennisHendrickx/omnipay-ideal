@@ -31,11 +31,13 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         }
     }
 
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
-    public function getError() {
+    public function getError()
+    {
         return $this->data->Error;
     }
 
@@ -81,13 +83,15 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         return $this->getMessage();
     }
 
-    public function getErrorDetail() {
+    public function getErrorDetail()
+    {
         if (isset($this->data->Error)) {
             return (string)$this->data->Error->errorDetail;
         }
     }
 
-    public function getConsumerMessage() {
+    public function getConsumerMessage()
+    {
         if (isset($this->data->Error)) {
             return (string)$this->data->Error->consumerMessage;
         }

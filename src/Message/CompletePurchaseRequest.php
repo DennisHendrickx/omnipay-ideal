@@ -18,17 +18,18 @@ class CompletePurchaseRequest extends AbstractRequest
 {
     public function getData()
     {
-    	$this->validate('transactionId');
+        $this->validate('transactionId');
 
         $data = $this->getBaseData('AcquirerStatusReq');
         $data->Merchant->merchantID = $this->getMerchantId();
         $data->Merchant->subID = $this->getSubId();
         $data->Transaction->transactionID = $this->getTransactionId();
-        
+
         return $data;
     }
 
-     public function parseResponse(\Omnipay\Common\Message\RequestInterface $request, $data){
-    	return new CompletePurchaseResponse($request, $data);
+    public function parseResponse(\Omnipay\Common\Message\RequestInterface $request, $data)
+    {
+        return new CompletePurchaseResponse($request, $data);
     }
 }

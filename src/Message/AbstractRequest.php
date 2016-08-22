@@ -100,8 +100,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     protected function getBaseData($action)
     {
-        $this->validate('acquirer', 'testMode', 'merchantId', 'subId', 'publicKeyPath', 'privateKeyPath', 'privateKeyPassphrase');
-        
+        $this->validate(
+            'acquirer',
+            'testMode',
+            'merchantId',
+            'subId',
+            'publicKeyPath',
+            'privateKeyPath',
+            'privateKeyPassphrase'
+        );
+
         $data = new SimpleXMLElement("<?xml version='1.0' encoding='UTF-8'?><$action />");
         $data->addAttribute('xmlns', static::IDEAL_NS);
         $data->addAttribute('version', static::IDEAL_VERSION);
@@ -207,7 +215,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         $message = $this->c14n($xml);
 
-        $key = openssl_get_privatekey('file://'.$this->getPrivateKeyPath(), $this->getPrivateKeyPassphrase());
+        $key = openssl_get_privatekey('file://' . $this->getPrivateKeyPath(), $this->getPrivateKeyPassphrase());
         if ($key && openssl_sign($message, $signature, $key, OPENSSL_ALGO_SHA256)) {
             openssl_free_key($key);
 
@@ -216,7 +224,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
         $error = 'Invalid private key.';
         while ($msg = openssl_error_string()) {
-            $error .= ' '.$msg;
+            $error .= ' ' . $msg;
         }
 
         throw new InvalidRequestException($error);
@@ -243,7 +251,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function getPublicKeyDigest()
     {
-        if (openssl_x509_export('file://'.$this->getPublicKeyPath(), $cert)) {
+        if (openssl_x509_export('file://' . $this->getPublicKeyPath(), $cert)) {
             $cert = str_replace(array('-----BEGIN CERTIFICATE-----', '-----END CERTIFICATE-----'), '', $cert);
 
             return strtoupper(sha1(base64_decode($cert)));
@@ -260,7 +268,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->response = $this->parseResponse($this, $httpResponse->xml());
     }
 
-    public function sendData($data){
+    public function sendData($data)
+    {
         throw new Exception('This method is not implemented.');
     }
 
@@ -273,9 +282,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
         switch ($this->getAcquirer()) {
             case 'ing':
-                return $base.'secure-ing.com/ideal/iDEALv3';
+                return $base . 'secure-ing.com/ideal/iDEALv3';
             case 'rabobank':
-                return $base.'rabobank.nl/ideal/iDEALv3';
+                return $base . 'rabobank.nl/ideal/iDEALv3';
         }
 
         throw new InvalidRequestException('Invalid acquirer selected');

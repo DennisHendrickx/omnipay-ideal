@@ -17,57 +17,67 @@ namespace Omnipay\Ideal\Message;
 class CompletePurchaseResponse extends AbstractResponse
 {
 
-    public function rootElementExists(){
+    public function rootElementExists()
+    {
         return isset($this->data->Transaction);
     }
 
-    public function getTransaction(){
-            return $this->data->Transaction;
+    public function getTransaction()
+    {
+        return $this->data->Transaction;
     }
 
-    public function getTransactionID(){
+    public function getTransactionID()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->transactionID;
         }
     }
 
-    public function getStatus(){
+    public function getStatus()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->status;
         }
     }
 
-    public function getStatusDateTimestamp(){
+    public function getStatusDateTimestamp()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->statusDateTimestamp;
         }
     }
 
-    public function getConsumerName(){
+    public function getConsumerName()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->consumerName;
         }
     }
 
-    public function getConsumerIBAN(){
+    public function getConsumerIBAN()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->consumerIBAN;
         }
     }
 
-    public function getConsumerBIC(){
+    public function getConsumerBIC()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->consumerBIC;
         }
     }
 
-    public function getAmount(){
+    public function getAmount()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->amount;
         }
     }
 
-    public function getCurrency(){
+    public function getCurrency()
+    {
         if (isset($this->data->Transaction)) {
             return (string)$this->data->Transaction->currency;
         }
